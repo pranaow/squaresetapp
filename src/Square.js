@@ -11,7 +11,7 @@ class Square extends React.Component {
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: parseFloat(event.target.value) });
-        //this.props.handleValueChange(this.props.name, this.state)
+        this.props.handleValueChange(this.props.name, this.state)
     }
 
     handleClick = (event) =>{
@@ -34,10 +34,10 @@ class Square extends React.Component {
             <div>
                 <h4>Section {this.props.name + 1} <button onClick={this.handleClick}>Remove this</button></h4>
                 <label>Width</label>
-                <input type="text" name="width" defaultValue={this.props.square.width} onChange={this.handleChange} />
+                <input type="text" name="width" value={String(this.state.width)} onChange={this.handleChange} />
                 <br />
                 <label>Height</label>
-                <input type="text" name="height" defaultValue={this.props.square.height} onChange={this.handleChange} />
+                <input type="text" name="height" value={this.state.height} onChange={this.handleChange} />
                 <br />
                 
                 {this.props.debug &&

@@ -10,14 +10,17 @@ class SquareSet extends React.Component {
     }
 
     removeElement = (idx) => {
-        this.setState({
-            squareset: this.state.squareset.filter((person, index) => {
-                if (index !== idx) {
+        const squareset = Object.assign([],this.state.squareset);
+        squareset.splice(idx,1);
+        this.setState({squareset:squareset})
+        // this.setState({
+        //     squareset: this.state.squareset.filter((person, index) => {
+        //         if (index !== idx) {
 
-                    return person
-                };
-            })
-        });
+        //             return person
+        //         };
+        //     })
+        // });
     }
 
     addElement = () => {
@@ -26,25 +29,21 @@ class SquareSet extends React.Component {
         });
     }
 
-    // handleChange = (idx, event) => {
-    //     this.setState({
-    //         squareset: this.state.squareset.filter((person, index) => {
-    //             if (index !== idx) {
+    handleChange = (idx, event) => {
+        const squareset = Object.assign([],this.state.squareset);
+        squareset[idx] = event;
+        this.setState({squareset:squareset})
+        console.log(event);
+    }
 
-    //                 return person
-    //             }else{
-    //                 return event;
-    //             };
-    //         })
-    //     });
-    // }
+    showState = () => {
+        alert(JSON.stringify(this.state));
+    }
 
     render() {
         return (
             <div>
-                <button onClick={() => {
-                    alert(JSON.stringify(this.state))
-                }}>update</button>
+                <button onClick={this.showState.bind(this)}>update</button>
                 <button onClick={this.addElement}>add</button>
                 {
                     this.state.squareset.map((square,idx)=>(
