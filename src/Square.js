@@ -30,14 +30,15 @@ class Square extends React.Component {
     }
 
     render() {
+        console.log(JSON.stringify(this.props))
         return (
             <div>
-                <h4>Section {this.props.name + 1} <button onClick={this.handleClick}>Remove this</button></h4>
+                <h4>Section {this.props.name + 1} <button onClick={this.handleClick}>-</button></h4>
                 <label>Width</label>
-                <input type="text" name="width" value={String(this.state.width)} onChange={this.handleChange} />
+                <input type="text" name="width" value={this.props.square.width} onChange={this.handleChange} />
                 <br />
                 <label>Height</label>
-                <input type="text" name="height" value={this.state.height} onChange={this.handleChange} />
+                <input type="text" name="height" value={this.props.square.height} onChange={this.handleChange} />
                 <br />
                 
                 {this.props.debug &&

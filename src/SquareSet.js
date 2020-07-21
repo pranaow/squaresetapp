@@ -10,8 +10,10 @@ class SquareSet extends React.Component {
     }
 
     removeElement = (idx) => {
+        console.log(idx)
         const squareset = Object.assign([],this.state.squareset);
         squareset.splice(idx,1);
+        console.log(JSON.stringify(squareset))
         this.setState({squareset:squareset})
         // this.setState({
         //     squareset: this.state.squareset.filter((person, index) => {
@@ -41,9 +43,10 @@ class SquareSet extends React.Component {
     }
 
     render() {
+        console.log(JSON.stringify(this.state))
         return (
             <div>
-                <button onClick={this.showState.bind(this)}>update</button>
+                <button onClick={this.showState}>Show Status</button>
                 <button onClick={this.addElement}>add</button>
                 {
                     this.state.squareset.map((square,idx)=>(
