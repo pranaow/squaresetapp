@@ -75,6 +75,11 @@ class SquareSet extends React.Component {
             a["depth"] = parseFloat(event.target.value)
             console.log(JSON.stringify(a));
             this.setState({cabinet:a})
+        }else if(event.target.name === "cabHeight"){
+            let a = Object.assign({}, this.state.cabinet);
+            a["height"] = parseFloat(event.target.value)
+            console.log(JSON.stringify(a));
+            this.setState({cabinet:a})
         }
         else{
             this.setState({ [event.target.name]: parseFloat(event.target.value) })
