@@ -1,6 +1,7 @@
 import React from "react";
 import Square from './Square.js'
 import axios from 'axios';
+import ThreeViewer from './ThreeViewer.js';
 
 class SquareSet extends React.Component {
     constructor(props) {
@@ -99,7 +100,11 @@ class SquareSet extends React.Component {
 
         return (
             <div>
+                
                 <h1>Generate Paper templates for miniature cabinets</h1>
+                <div ></div>
+               
+                    
                 <button onClick={this.showState}>Download Template</button>
                 
                 <br></br>
