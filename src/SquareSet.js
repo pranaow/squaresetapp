@@ -10,12 +10,30 @@ class SquareSet extends React.Component {
             subsections: this.props.subsections,
             panels : this.props.panels,
             cabinet : this.props.cabinet,
-            data : 2,
-            x : 1
         }
+        
         
     }
 
+    data =  {
+        scale: 1,
+        cabinet : {
+            depth : 36,
+            height: 38
+        },
+        panels: {
+            thickness: 2
+        },
+        subsections: [{
+            width: 38,
+            config: 1,
+            ratio : [1,1,0,0,0]
+        }, {
+            width: 38,
+            config: 0,
+            ratio : [1,1,0,0,0]
+        }]
+    }
     x = 1
 
     removeElement = (idx) => {
@@ -94,8 +112,8 @@ class SquareSet extends React.Component {
     ratioChange = (idx, idx1, event) => {
         const ratio = this.state.subsections[idx].ratio
         ratio[idx1] = parseFloat(event.target.value)
-        if (isNaN(parseFloat(event.target.value)))
-            ratio[idx1] = ""
+        // if (isNaN(parseFloat(event.target.value)))
+        //     ratio[idx1] = ""
         this.setState({ratio : {...this.state.subsections[idx], ratio:ratio}})
         console.log(this.state)
     }
@@ -103,9 +121,9 @@ class SquareSet extends React.Component {
     updateView = () => {
         //console.log(this.state)
         //this.setState({data : 7})
-        console.log(this.x)
-        this.x = 2;
-        console.log(this.x)
+        this.data =JSON.parse(JSON.stringify(this.state));
+        this.refs.child.updateCubes(this.data);
+        this.forceUpdate()
     }
 
     render() {
@@ -114,8 +132,8 @@ class SquareSet extends React.Component {
             <div>
                 
                 <h1>Generate Paper templates for miniature cabinets</h1>
-                <div > <ThreeViewer data={this.data} /></div>
-               
+                <div > <ThreeViewer ref="child"  data={this.data}/></div>
+                <button onClick={this.updateView}>Show Preview of Panels</button>
 
                 <button onClick={this.showState}>Download Template</button>
                 

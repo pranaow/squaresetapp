@@ -1,5 +1,6 @@
 import React from "react";
 import * as THREE from "three";
+import _ from 'lodash';
 
 class ThreeViewer extends React.Component {
     constructor(props) {
@@ -25,13 +26,13 @@ class ThreeViewer extends React.Component {
         return arr;
     }
 
-    createCubes() {
+    createCubes(data) {
         //this.scene.remove(this.cubes[0])
         for (var i = this.cubes.children.length - 1; i >= 0; i--) {
             this.cubes.remove(this.cubes.children[i]);
         }
-        const thickness = this.props.data.panels.thickness
-        const subsections = this.props.data.subsections
+        const thickness = data.panels.thickness
+        const subsections = data.subsections
         var x1 = 0
         for (var i = 0; i < subsections.length; i++){
             x1 -= subsections[i].width
@@ -39,8 +40,8 @@ class ThreeViewer extends React.Component {
         var x = x1/2        
         for (var i = 0; i < subsections.length; i++) {
             const width = subsections[i].width
-            const height = this.props.data.cabinet.height
-            if (subsections[i].config) {
+            const height = data.cabinet.height
+            if (subsections[i].config === 0) {
                 const section = subsections[i]
                 const ratio = this.removeA([...section.ratio], 0)
                 const noOfPanels = ratio.length
@@ -48,7 +49,7 @@ class ThreeViewer extends React.Component {
                     return a + b;
                 }, 0))
                 const widthPerPane = (ratio).map(function (x) { return x * multiplier; });
-                console.log(widthPerPane)
+                //console.log(widthPerPane)
                 for (var j = 0; j < noOfPanels; j++) {
                     const renderer = new THREE.WebGLRenderer({ antialias: true })
                     const geometry = new THREE.BoxGeometry(widthPerPane[j], height, thickness)
@@ -71,7 +72,7 @@ class ThreeViewer extends React.Component {
                     return a + b;
                 }, 0))
                 const heightPerPane = (ratio).map(function (x) { return x * multiplier; });
-                console.log(heightPerPane)
+                //console.log(heightPerPane)
                 var h = 0
                 for (var j = 0; j < noOfPanels; j++) {
                     const renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -95,16 +96,22 @@ class ThreeViewer extends React.Component {
         this.camera.position.z = -x1
     }
 
-    updateCubes() {
-        this.createCubes()
-
+    updateCubes(data) {
+        //console.log('hi')
+        this.createCubes(data);
+        //this.forceUpdate();
         //this.cubes[0].geometry = new THREE.BoxGeometry(this.props.data, 1, 1)
         //this.scene.add(this.cubes[0])
     }
 
-    componentDidUpdate() {
-        this.updateCubes();
-    }
+    // componentDidUpdate(props) {
+    //     // console.log(props.data);
+    //     // console.log(this.state);
+    //     // if(!( _.isEqual(props.data, this.state) )){
+    //     //     this.updateCubes();
+    //     // };
+    //     // //this.updateCubes();
+    // }
 
     componentDidMount() {
        
@@ -132,7 +139,7 @@ class ThreeViewer extends React.Component {
 
         this.mount.appendChild(this.renderer.domElement)
         this.start()
-        this.createCubes()  
+        this.createCubes(this.props.data)  
     }
 
     componentWillUnmount() {
