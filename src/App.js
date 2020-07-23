@@ -11,7 +11,6 @@ function App() {
           <div>
             {!isLatestVersion && (
               <p>
-                // eslint-disable-next-line 
                 <a
                   href="#"
                   onClick={e => {

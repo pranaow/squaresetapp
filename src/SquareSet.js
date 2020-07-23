@@ -1,5 +1,4 @@
 import React from "react";
-import Square from './Square.js'
 import axios from 'axios';
 import ThreeViewer from './ThreeViewer.js';
 
@@ -10,9 +9,14 @@ class SquareSet extends React.Component {
             scale: this.props.scale,
             subsections: this.props.subsections,
             panels : this.props.panels,
-            cabinet : this.props.cabinet
+            cabinet : this.props.cabinet,
+            data : 2,
+            x : 1
         }
+        
     }
+
+    x = 1
 
     removeElement = (idx) => {
         console.log(idx)
@@ -96,15 +100,23 @@ class SquareSet extends React.Component {
         console.log(this.state)
     }
 
-    render() {
+    updateView = () => {
+        //console.log(this.state)
+        //this.setState({data : 7})
+        console.log(this.x)
+        this.x = 2;
+        console.log(this.x)
+    }
 
+    render() {
+        //
         return (
             <div>
                 
                 <h1>Generate Paper templates for miniature cabinets</h1>
-                <div ></div>
+                <div > <ThreeViewer data={this.data} /></div>
                
-                    
+
                 <button onClick={this.showState}>Download Template</button>
                 
                 <br></br>
