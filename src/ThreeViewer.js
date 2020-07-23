@@ -73,7 +73,7 @@ class ThreeViewer extends React.Component {
                 }, 0))
                 const heightPerPane = (ratio).map(function (x) { return x * multiplier; });
                 //console.log(heightPerPane)
-                var h = 0
+                var h = height/2
                 for (var j = 0; j < noOfPanels; j++) {
                     const renderer = new THREE.WebGLRenderer({ antialias: true })
                     const geometry = new THREE.BoxGeometry(width, heightPerPane[j], thickness)
@@ -81,8 +81,9 @@ class ThreeViewer extends React.Component {
                     let cube = new THREE.Mesh(geometry, material)
                     var edges = new THREE.EdgesHelper(cube, "gray");
                     edges.material.linewidth = 2;
-                    cube.position.set(x + width/2, h + heightPerPane[j]/2, 0)
-                    edges.position.set(x + width/2, h + heightPerPane[j]/2, 0)
+                    console.log(h + heightPerPane[j]/2)
+                    cube.position.set(x + width/2, h - heightPerPane[j]/2, 0)
+                    edges.position.set(x + width/2, h - heightPerPane[j]/2, 0)
                     this.cubes.add(cube)
                     this.cubes.add(edges)
                     h -= heightPerPane[j]
