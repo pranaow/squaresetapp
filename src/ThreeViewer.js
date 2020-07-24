@@ -1,6 +1,5 @@
 import React from "react";
 import * as THREE from "three";
-import _ from 'lodash';
 
 class ThreeViewer extends React.Component {
     constructor(props) {
@@ -34,11 +33,12 @@ class ThreeViewer extends React.Component {
         const thickness = data.panels.thickness
         const subsections = data.subsections
         var x1 = 0
-        for (var i = 0; i < subsections.length; i++) {
+        for (i = 0; i < subsections.length; i++) {
             x1 -= subsections[i].width
         }
         var x = x1 / 2
-        for (var i = 0; i < subsections.length; i++) {
+        var j =0
+        for (i = 0; i < subsections.length; i++) {
             const width = subsections[i].width
             const height = data.cabinet.height
             if (subsections[i].config === 0) {
@@ -50,8 +50,7 @@ class ThreeViewer extends React.Component {
                 }, 0))
                 const widthPerPane = (ratio).map(function (x) { return x * multiplier; });
                 //console.log(widthPerPane)
-                for (var j = 0; j < noOfPanels; j++) {
-                    const renderer = new THREE.WebGLRenderer({ antialias: true })
+                for (j = 0; j < noOfPanels; j++) {
                     const geometry = new THREE.BoxGeometry(widthPerPane[j], height, thickness)
                     const material = new THREE.MeshBasicMaterial({ color: 'white' })
                     let cube = new THREE.Mesh(geometry, material)
@@ -74,8 +73,7 @@ class ThreeViewer extends React.Component {
                 const heightPerPane = (ratio).map(function (x) { return x * multiplier; });
                 //console.log(heightPerPane)
                 var h = height / 2
-                for (var j = 0; j < noOfPanels; j++) {
-                    const renderer = new THREE.WebGLRenderer({ antialias: true })
+                for (j = 0; j < noOfPanels; j++) {
                     const geometry = new THREE.BoxGeometry(width, heightPerPane[j], thickness)
                     const material = new THREE.MeshBasicMaterial({ color: 'white' })
                     let cube = new THREE.Mesh(geometry, material)
