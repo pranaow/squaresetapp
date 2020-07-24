@@ -34,10 +34,10 @@ class ThreeViewer extends React.Component {
         const thickness = data.panels.thickness
         const subsections = data.subsections
         var x1 = 0
-        for (var i = 0; i < subsections.length; i++){
+        for (var i = 0; i < subsections.length; i++) {
             x1 -= subsections[i].width
         }
-        var x = x1/2        
+        var x = x1 / 2
         for (var i = 0; i < subsections.length; i++) {
             const width = subsections[i].width
             const height = data.cabinet.height
@@ -53,18 +53,18 @@ class ThreeViewer extends React.Component {
                 for (var j = 0; j < noOfPanels; j++) {
                     const renderer = new THREE.WebGLRenderer({ antialias: true })
                     const geometry = new THREE.BoxGeometry(widthPerPane[j], height, thickness)
-                    const material = new THREE.MeshBasicMaterial({ color: 'blue' })
+                    const material = new THREE.MeshBasicMaterial({ color: 'white' })
                     let cube = new THREE.Mesh(geometry, material)
                     var edges = new THREE.EdgesHelper(cube, "gray");
                     edges.material.linewidth = 2;
-                    cube.position.set(x + widthPerPane[j]/2, 0, 0)
-                    edges.position.set(x + widthPerPane[j]/2, 0, 0)
+                    cube.position.set(x + widthPerPane[j] / 2, 0, 0)
+                    edges.position.set(x + widthPerPane[j] / 2, 0, 0)
                     this.cubes.add(cube)
                     this.cubes.add(edges)
                     x += widthPerPane[j]
                 }
 
-            }else{
+            } else {
                 const section = subsections[i]
                 const ratio = this.removeA([...section.ratio], 0)
                 const noOfPanels = ratio.length
@@ -73,17 +73,17 @@ class ThreeViewer extends React.Component {
                 }, 0))
                 const heightPerPane = (ratio).map(function (x) { return x * multiplier; });
                 //console.log(heightPerPane)
-                var h = height/2
+                var h = height / 2
                 for (var j = 0; j < noOfPanels; j++) {
                     const renderer = new THREE.WebGLRenderer({ antialias: true })
                     const geometry = new THREE.BoxGeometry(width, heightPerPane[j], thickness)
-                    const material = new THREE.MeshBasicMaterial({ color: 'blue' })
+                    const material = new THREE.MeshBasicMaterial({ color: 'white' })
                     let cube = new THREE.Mesh(geometry, material)
                     var edges = new THREE.EdgesHelper(cube, "gray");
                     edges.material.linewidth = 2;
-                    console.log(h + heightPerPane[j]/2)
-                    cube.position.set(x + width/2, h - heightPerPane[j]/2, 0)
-                    edges.position.set(x + width/2, h - heightPerPane[j]/2, 0)
+                    console.log(h + heightPerPane[j] / 2)
+                    cube.position.set(x + width / 2, h - heightPerPane[j] / 2, 0)
+                    edges.position.set(x + width / 2, h - heightPerPane[j] / 2, 0)
                     this.cubes.add(cube)
                     this.cubes.add(edges)
                     h -= heightPerPane[j]
@@ -91,10 +91,25 @@ class ThreeViewer extends React.Component {
                 x += width
             }
 
-            
+
         }
+
+        const geometry = new THREE.BoxGeometry(-x1, data.cabinet.height, data.cabinet.depth)
+        const material = new THREE.MeshBasicMaterial({ color: 'white' })
+        let cube = new THREE.Mesh(geometry, material)
+        var edges = new THREE.EdgesHelper(cube, "gray");
+        edges.material.linewidth = 2;
+
+        cube.position.set(0, 0, data.cabinet.depth/2+thickness/2)
+        edges.position.set(0, 0, data.cabinet.depth/2 +thickness/2)
+
+        this.cubes.add(cube)
+        this.cubes.add(edges)
+
+        this.cubes.position.z = -data.cabinet.depth/2
+
         this.scene.add(this.cubes)
-        this.camera.position.z = -x1
+        this.camera.position.z = -Math.min(x1, -data.cabinet.height) + data.cabinet.depth/2
     }
 
     updateCubes(data) {
@@ -115,7 +130,7 @@ class ThreeViewer extends React.Component {
     // }
 
     componentDidMount() {
-       
+
         const width = this.mount.clientWidth
         const height = this.mount.clientHeight
 
@@ -132,7 +147,7 @@ class ThreeViewer extends React.Component {
         renderer.setClearColor('#000000')
         renderer.setSize(width, height)
 
-        
+
 
         this.scene = scene
         this.camera = camera
@@ -140,7 +155,7 @@ class ThreeViewer extends React.Component {
 
         this.mount.appendChild(this.renderer.domElement)
         this.start()
-        this.createCubes(this.props.data)  
+        this.createCubes(this.props.data)
     }
 
     componentWillUnmount() {
