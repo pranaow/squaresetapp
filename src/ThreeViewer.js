@@ -100,8 +100,8 @@ class ThreeViewer extends React.Component {
         var edges = new THREE.EdgesHelper(cube, "gray");
         edges.material.linewidth = 2;
 
-        cube.position.set(0, 0, data.cabinet.depth/2+thickness/2)
-        edges.position.set(0, 0, data.cabinet.depth/2 +thickness/2)
+        cube.position.set(0, 0, -data.cabinet.depth/2+thickness/2)
+        edges.position.set(0, 0, -data.cabinet.depth/2 +thickness/2)
 
         this.cubes.add(cube)
         this.cubes.add(edges)

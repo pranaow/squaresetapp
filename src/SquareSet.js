@@ -141,7 +141,7 @@ class SquareSet extends React.Component {
                 Scale:<input type="text" name="scale" defaultValue={this.state.scale} onChange={this.handleChangeMockHL} /> Model/Actual
                 <br />
                 <h2>Panels</h2>
-                Thickness (mm):<input type="text" name="thickness" defaultValue={this.state.scale} onChange={this.handleChangeMockHL} />
+                Thickness (mm):<input type="number" scale="0.001" name="thickness" defaultValue={this.state.scale} onChange={this.handleChangeMockHL} />
                 <br />
                 <h2>Cabinet</h2>
                 Depth (mm):<input type="text" name="cabDepth" defaultValue={this.state.cabinet.depth} onChange={this.handleChangeMockHL} />
@@ -156,16 +156,16 @@ class SquareSet extends React.Component {
                         <>
                             <h3>Section {idx + 1} <button onClick={this.removeElement.bind(this, idx)}>-</button></h3>
                             
-                        Width (mm):<input type="text" key={idx} name="width" value={subsection.width} onChange={this.handleChangeMock.bind(this, idx)} />
+                        Width (mm):<input type="number" step="0.0001" key={idx} name="width" value={subsection.width} onChange={this.handleChangeMock.bind(this, idx)} />
                             <br />
-                        Horizontal:<input type="text" key={idx + 50} name="config" value={subsection.config} onChange={this.handleChangeMock.bind(this, idx)} />
+                        Horizontal:<input type="number" min="0" max="1" key={idx + 50} name="config" value={subsection.config} onChange={this.handleChangeMock.bind(this, idx)} />
 
                             <br />
                             Panel Ratios
                             {
                                 subsection.ratio.map((num, idx1) => (
                                     <>
-                                    <input type="text" onChange={this.ratioChange.bind(this, idx, idx1)} value={num} style={{width : "2em"}}/>
+                                    <input type="number" step="0.001" onChange={this.ratioChange.bind(this, idx, idx1)} value={num} style={{width : "3em"}}/>
                                     {(idx1 !== subsection.ratio.length-1) && ":"}
                                     </>
                                 ))
