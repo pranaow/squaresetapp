@@ -133,7 +133,7 @@ class SquareSet extends React.Component {
                 
                 <h1>Generate Paper templates for miniature cabinets</h1>
                 <div > <ThreeViewer ref="child"  data={this.data}/></div>
-                <button onClick={this.updateView}>Show Preview of Panels</button>
+                <button onClick={this.updateView}>Show Preview of Cabinet</button>
 
                 <button onClick={this.showState}>Download Template</button>
                 
@@ -158,7 +158,10 @@ class SquareSet extends React.Component {
                             
                         Width (mm):<input type="number" step="0.0001" key={idx} name="width" value={subsection.width} onChange={this.handleChangeMock.bind(this, idx)} />
                             <br />
-                        Horizontal:<input type="number" min="0" max="1" key={idx + 50} name="config" value={subsection.config} onChange={this.handleChangeMock.bind(this, idx)} />
+                        Panel Configuration: <select  key={idx + 50} name="config" value={subsection.config} onChange={this.handleChangeMock.bind(this, idx)} >
+                            <option value={0}>Vertical</option>
+                            <option value={1}>Horizontal</option>
+                        </select>
 
                             <br />
                             Panel Ratios
