@@ -137,10 +137,10 @@ class SquareSet extends React.Component {
                 <Jumbotron><h1>Generate Paper templates for miniature cabinets</h1></Jumbotron>
                 <Container style={{ textAlign: "left" }}>
                     <Row>
-                        <Col>
+                        <Col xs="12" md="12" lg="6">
                             <div > <ThreeViewer ref="child" data={this.data} /></div>
                         </Col>
-                        <Col>
+                        <Col xs="12" md="12" lg="6">
                             <Button variant="outline-primary m-2" onClick={this.updateView}> Show Preview of Cabinet</Button>
 
                             <Button variant="outline-primary m-2" onClick={this.showState}>Download Template</Button>
